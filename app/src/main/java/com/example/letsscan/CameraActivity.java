@@ -74,6 +74,7 @@ import org.opencv.videoio.Videoio;
 
 
 public class CameraActivity extends AppCompatActivity implements UiThreadCallback {
+
     static final /* synthetic */ boolean $assertionsDisabled = false;
     private static final int BATCH_LIMIT = 100;
     static String orientation_status = "normal";
