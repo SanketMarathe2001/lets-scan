@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:layout_gravity="center"
+    android:id="@+id/image_pager_file"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/scanPadding">
+
+    <FrameLayout
+        android:id="@+id/sourceFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/scanPadding">
+
+        <ImageView
+            android:id="@+id/imageviewpager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true" />
+    </FrameLayout>
+
+    <com.example.letsscan.Crop.PolygonView
+        android:layout_gravity="center"
+        android:id="@+id/polygonView"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</FrameLayout>

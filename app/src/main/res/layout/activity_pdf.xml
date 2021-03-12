@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PdfActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/pdfactionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primaryColor"
+        app:theme="@style/ToolbarColored">
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <Button
+        android:layout_below="@+id/pdfactionbar"
+        android:id="@+id/buttonRender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Render PDF to Image"
+        android:layout_marginTop="10dp"
+        android:onClick="Options"/>
+
+
+    <Button
+        android:id="@+id/buttonEncrypted"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Encrypt PDF"
+        android:layout_below="@+id/buttonRender"
+        android:layout_marginTop="10dp"
+        android:onClick="Options"/>
+
+    <Button
+        android:id="@+id/buttonDecryptPdf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Decrypt PDF"
+        android:layout_below="@+id/buttonEncrypted"
+        android:layout_marginTop="10dp"
+        android:onClick="Options"/>
+
+    <Button
+        android:id="@+id/buttonSplitPdf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Split PDF"
+        android:layout_below="@+id/buttonDecryptPdf"
+        android:layout_marginTop="10dp"
+        android:onClick="Options"/>
+
+    <TextView
+        android:id="@+id/path"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonSplitPdf"/>
+
+</RelativeLayout>

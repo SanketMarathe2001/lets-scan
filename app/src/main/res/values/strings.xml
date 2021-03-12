@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">LetsScan</string>
+    <string name="original">Original</string>
+    <string name="gray">Gray</string>
+    <string name="b_and_w">B and W</string>
+    <string name="magic">Magic</string>
+    <string name="processing_images">Processing Images</string>
+    <string name="delete">Delete</string>
+    <string name="filter">Filter</string>
+    <string name="reset">Reset</string>
+    <string name="rotate">Rotate</string>
+    <string name="scan_document">Scan Document</string>
+    <string name="enter_file_name">Enter file name</string>
+    <string name="skip">Skip >></string>
+    <string name="cancel">Cancel</string>
+    <string name="enter">Okay</string>
+    <string name="import_gallery">Import from gallery</string>
+    <string name="choose_an_option">Choose an option:</string>
+    <string name="import_pdf">Import PDF file</string>
+    <string name="discard">Discard</string>
+    <string name="discard_images">Discard Images</string>
+    <string name="discard_images_dialog">Do you want to discard the images?</string>
+    <string name="export_documents">Export Documents</string>
+    <string name="format">Format</string>
+    <string name="pdf">PDF</string>
+    <string name="image">Image</string>
+    <string name="quality">Quality</string>
+    <string name="create_pdf">File creation in progress. Please wait.</string>
+    <string name="done">Done</string>
+    <string name="low">Low</string>
+    <string name="medium">Medium</string>
+    <string name="high">High</string>
+    <string name="ultra">Ultra</string>
+    <string name="scanned_documents">Scanned Documents</string>
+    <string name="share_this_app">Share this App</string>
+    <string name="how_to_use">How to Use</string>
+    <string name="settings">Settings</string>
+    <string name="pages">Pages</string>
+    <string name="modified_on">Created on</string>
+    <string name="share_as_pdf">Share as PDF/Image</string>
+    <string name="save_as_pdf">Save as PDF/Image</string>
+    <string name="rename_file">Rename File</string>
+    <string name="delete_file">Delete File</string>
+    <string name="loading">Loading</string>
+    <string name="select_images">Select Images</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="enter_search_keyword">Enter Search Keyword</string>
+    <string name="tap_on_word_for_meaning">Tap on word for meaning..</string>
+    <string name="loading_annotations">Loading Annotations..</string>
+
+    <string name="lang_label_english">English</string>
+    <string name="lang_label_hindi">Hindi</string>
+    <string name="pref_lang_english_value">English</string>
+    <string name="pref_lang_hindi_value">Hindi</string>
+    <string name="quality_hi_value">High</string>
+    <string name="quality_label_hi">High</string>
+    <string name="quality_label_lo">Low</string>
+    <string name="quality_label_sd">Standard</string>
+    <string name="quality_lo_value">Low</string>
+    <string name="quality_sd_value">Standard</string>
+    <string name="oops_word_not_found_try_next_one">Oops! Word not found, try next one..</string>
+    <string name="image_thumbnail">image thumbnail</string>
+    <string name="tap_to_add_new_pages">Tap to add new pages</string>
+
+    <string name="select_all">Select All</string>
+    <string name="share">Share</string>
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
+
+    <string name="select_one_image">Select atleast one image</string>
+    <string name="clear_all">CLEAR ALL</string>
+    <string name="elect_all">SELECT ALL</string>
+    <string name="hint_file_act">Your recent documents appear here.\n Tap on camera button to add files.</string>
+
+    <string name="title_activity_setting">SettingActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="copy">Copy</string>
+    <string name="url">Url</string>
+
+
+</resources>

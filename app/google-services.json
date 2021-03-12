@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "162587161941",
+    "firebase_url": "https://clean-scan-263d6.firebaseio.com",
+    "project_id": "clean-scan-263d6",
+    "storage_bucket": "clean-scan-263d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162587161941:android:f15882806711eba7206bdc",
+        "android_client_info": {
+          "package_name": "com.example.letsscan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162587161941-9e818bspag3ctvp7jsidcbghonbmk4un.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDafC38gEBw7F-qHPEC3bEN32qvhGb8Fz4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162587161941-9e818bspag3ctvp7jsidcbghonbmk4un.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

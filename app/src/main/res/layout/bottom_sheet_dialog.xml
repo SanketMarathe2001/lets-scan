@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="vertical" android:background="@drawable/rounded_dialogue" android:padding="8dp" android:layout_width="match_parent" android:layout_height="match_parent" app:behavior_peekHeight="55dp">
+    <LinearLayout android:layout_gravity="center_horizontal" android:orientation="vertical" android:id="@+id/rectangle" android:background="@drawable/round_edittext2" android:layout_width="16dp" android:layout_height="3dp"/>
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingStart="8dp" android:paddingEnd="8dp">
+        <ImageButton android:id="@+id/audio_btn" android:background="@drawable/round_ic_bg" android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/ic_audio"/>
+        <FrameLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1">
+            <LinearLayout android:layout_gravity="start" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingStart="12dp">
+                <TextView android:textSize="20sp" android:textColor="#0c0c0c" android:id="@+id/word" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Word"/>
+                <TextView android:textSize="16sp" android:id="@+id/phonetic" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="phonetic"/>
+            </LinearLayout>
+            <LinearLayout android:layout_gravity="end" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="match_parent">
+                <ImageButton android:id="@+id/translateButton" android:background="@drawable/round_ic_bg" android:layout_width="40dp" android:layout_height="40dp" android:src="@drawable/ic_translate"/>
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:id="@+id/translateBar" android:layout_width="match_parent" android:layout_height="0dp">
+        <Spinner android:id="@+id/translate_spinner" android:visibility="visible" android:layout_width="120dp" android:layout_height="wrap_content"/>
+        <TextView android:gravity="bottom" android:id="@+id/transText" android:layout_width="wrap_content" android:layout_height="match_parent"/>
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/recyclerView1" android:padding="0dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+</LinearLayout>

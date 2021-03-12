@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:layout_marginBottom="6dp" android:layout_marginStart="16dp" android:layout_marginEnd="16dp" app:cardCornerRadius="6dp">
+        <LinearLayout android:orientation="horizontal" android:id="@+id/fileLinearLayout" android:background="@color/whiteColor" android:layout_width="match_parent" android:layout_height="wrap_content" android:weightSum="2">
+            <ImageView android:id="@+id/fileImage" android:background="@drawable/round_images_file_act" android:layout_width="0dp" android:layout_height="wrap_content" android:scaleType="fitXY" android:layout_weight="1"/>
+            <FrameLayout android:layout_gravity="center_vertical" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1">
+                <LinearLayout android:layout_gravity="start" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:layout_marginBottom="10dp" android:layout_marginStart="12dp">
+                    <TextView android:textSize="18sp" android:textColor="@color/additionalTextColor" android:ellipsize="end" android:id="@+id/fileName" android:layout_width="135dp" android:layout_height="wrap_content" android:layout_marginBottom="7dp" android:text="No file name" android:maxLines="1" android:ems="13"/>
+                    <TextView android:textSize="13sp" android:textColor="@color/secondaryTextColor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/modified_on"/>
+                    <TextView android:textSize="13sp" android:textColor="@color/secondaryTextColor" android:id="@+id/fileDate" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DD/MM/YY"/>
+                    <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5dp">
+                        <TextView android:textSize="13sp" android:textColor="@color/secondaryTextColor" android:paddingTop="1dp" android:paddingBottom="1dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/pages"/>
+                        <TextView android:textSize="10sp" android:id="@+id/pg_count_file_act" android:background="@drawable/rect_file_act" android:paddingTop="1dp" android:paddingBottom="1dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:paddingStart="3dp" android:paddingEnd="3dp" android:layout_marginStart="4dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <ImageButton android:layout_gravity="right|center_vertical|center_horizontal|center|end" android:id="@+id/dropdown_menu" android:background="#fdfdfd" android:padding="5dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_threedot"/>
+            </FrameLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

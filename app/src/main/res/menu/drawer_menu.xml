@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:layout_width="match_parent" android:layout_height="match_parent">
+    <group android:id="@+id/grp0" android:checkableBehavior="single">
+        <item android:icon="@drawable/ic_camera_file_act" android:title="@string/scanned_documents"/>
+    </group>
+    <group android:id="@+id/grp1" android:checkableBehavior="none">
+        <item android:icon="@drawable/ic_settings" android:id="@+id/nav_settings" android:title="@string/settings"/>
+        <item android:icon="@drawable/ic_qr" android:id="@+id/nav_qr_code" android:title="QR Code"/>
+        <item android:icon="@drawable/ic_pdf_file_act" android:id="@+id/pdf_tool" android:title="PDF Tools"/>
+        <item android:icon="@drawable/ocr" android:id="@+id/ocr_option" android:title="OCR"/>
+        <item android:icon="@drawable/ic_twotone_menu_book_24" android:id="@+id/nav_tutorial" android:title="@string/how_to_use"/>
+        <item android:icon="@drawable/ic_twotone_share_24" android:id="@+id/nav_refer" android:title="@string/share_this_app"/>
+    </group>
+</menu>

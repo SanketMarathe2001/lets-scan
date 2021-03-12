@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="horizontal" android:paddingBottom="3dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+    <TextView android:textSize="16sp" android:textColor="#04010b" android:layout_gravity="top" android:id="@+id/def_number" android:layout_width="wrap_content" android:layout_height="match_parent" android:paddingStart="6dp" android:paddingEnd="0dp"/>
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TextView android:textSize="16sp" android:textColor="#04010b" android:id="@+id/definition" android:paddingBottom="4dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingStart="6dp" android:paddingEnd="2dp"/>
+        <TextView android:textSize="16sp" android:id="@+id/example" android:paddingBottom="4dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingStart="6dp" android:paddingEnd="2dp"/>
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="14sp" android:textColor="@color/primaryColor" android:layout_gravity="top" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="Similar:" android:paddingStart="6dp" android:paddingEnd="0dp"/>
+            <androidx.recyclerview.widget.RecyclerView android:id="@+id/synonym_rview" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingStart="6dp" android:paddingEnd="4dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

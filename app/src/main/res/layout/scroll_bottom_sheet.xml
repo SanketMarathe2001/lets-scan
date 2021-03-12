@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout android:orientation="vertical" android:id="@+id/pre_press" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginTop="6dp" android:layout_marginRight="8dp" android:layout_marginBottom="6dp">
+        <TextView android:textSize="18sp" android:textColor="@color/primaryColor" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/export_documents"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="1dp">
+            <TextView android:textSize="16sp" android:textColor="@color/primaryColor" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/format" android:layout_marginEnd="12dp"/>
+            <com.google.android.material.tabs.TabLayout android:layout_gravity="end" android:id="@+id/doc_type_tab" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <com.google.android.material.tabs.TabItem android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/pdf"/>
+                <com.google.android.material.tabs.TabItem android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/image"/>
+            </com.google.android.material.tabs.TabLayout>
+        </LinearLayout>
+        <View style="@style/Divider"/>
+        <LinearLayout android:orientation="horizontal" android:paddingTop="8dp" android:paddingBottom="8dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="16sp" android:textColor="@color/primaryColor" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/quality" android:layout_marginEnd="12dp"/>
+            <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:layout_marginEnd="8dp">
+                <SeekBar android:id="@+id/qualityBar" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="3" android:progress="1" style="@style/Widget.AppCompat.SeekBar.Discrete"/>
+                <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+                    <TextView android:textSize="14sp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/low" android:layout_weight="1"/>
+                    <TextView android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/medium" android:layout_weight="1"/>
+                    <TextView android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/high" android:layout_weight="1"/>
+                    <TextView android:gravity="end" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ultra" android:layout_weight="1"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:gravity="end" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="10dp" android:layout_marginTop="4dp" android:layout_marginRight="10dp">
+            <Button android:textColor="@color/additionalTextColor" android:layout_gravity="start" android:id="@+id/cancel_fragment" android:background="@drawable/round_btn_dialog_cancel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="80dp" android:minHeight="36dp" android:text="@string/cancel" android:textAllCaps="true" android:layout_marginEnd="10dp" android:stateListAnimator="@null"/>
+            <Button android:textColor="@color/additionalTextColor" android:layout_gravity="end" android:id="@+id/save_share_btn_frag" android:background="@drawable/round_btn_dialog_ok" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="80dp" android:minHeight="36dp" android:text="@string/done" android:textAllCaps="true" android:stateListAnimator="@null"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout android:orientation="vertical" android:id="@+id/post_press" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="8dp" android:layout_marginTop="6dp" android:layout_marginRight="8dp" android:layout_marginBottom="6dp">
+        <TextView android:textSize="18sp" android:textColor="@color/primaryColor" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/create_pdf"/>
+        <ProgressBar android:layout_gravity="center_horizontal" android:id="@+id/progressBarScroll" android:padding="10dp" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    </LinearLayout>
+</FrameLayout>

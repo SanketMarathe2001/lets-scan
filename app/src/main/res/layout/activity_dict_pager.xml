@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+    <FrameLayout android:background="@color/design_default_color_on_secondary" android:layout_width="match_parent" android:layout_height="match_parent">
+        <androidx.viewpager2.widget.ViewPager2 android:layout_gravity="center" android:id="@+id/viewPagerDictSlider" android:background="@android:color/black" android:layout_width="match_parent" android:layout_height="match_parent"/>
+        <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:id="@+id/progress_bar_dict" android:background="@drawable/round_edittext3" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="50dp" android:layout_marginEnd="50dp">
+            <TextView android:textSize="15sp" android:gravity="center" android:padding="4dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/loading_annotations"/>
+            <ProgressBar android:layout_gravity="center" android:id="@+id/progress_bar" android:padding="4dp" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <TextView android:textSize="15sp" android:textColor="#000000" android:layout_gravity="center_horizontal" android:id="@+id/img_count_dict_pager" android:background="@drawable/round_edittext6" android:paddingTop="4dp" android:paddingBottom="6dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="0/0" android:alpha="0.5" android:paddingStart="10dp" android:paddingEnd="10dp"/>
+    </FrameLayout>
+    <FrameLayout android:layout_gravity="bottom" android:id="@+id/dict_bottom_bar" android:visibility="visible" android:clickable="true" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:layout_marginStart="12dp" android:layout_marginEnd="12dp" app:layout_dodgeInsetEdges="bottom">
+        <ImageButton android:layout_gravity="start" android:id="@+id/dict_btn_bottom_bar" android:background="@drawable/dict_pager_round_img_btn" android:padding="7dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_dict_btn" android:alpha="0.7" android:visibility="gone"/>
+        <ImageButton android:layout_gravity="end" android:id="@+id/text2speech_bottom_bar" android:background="@drawable/dict_pager_round_img_btn" android:padding="7dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_headset" android:alpha="0.7"/>
+
+        <ImageButton
+            android:id="@+id/ocr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:alpha="0.7"
+            android:background="@drawable/dict_pager_round_img_btn"
+            android:padding="10dp"
+            android:src="@drawable/ocr" />
+        <ImageButton
+            android:id="@+id/share_img"
+            android:layout_width="wrap_content"
+            android:layout_gravity="left"
+            android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:background="@drawable/dict_pager_round_img_btn"
+            android:padding="10dp"
+            android:src="@drawable/ic_twotone_share_24" />
+    </FrameLayout>
+    <androidx.core.widget.NestedScrollView android:id="@+id/bottom_sheet" android:background="@drawable/rounded_dialogue" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" app:behavior_hideable="false" app:behavior_peekHeight="0dp" app:layout_behavior="@string/bottom_sheet_behavior" app:layout_insetEdge="bottom">
+        <TextView android:textSize="20sp" android:layout_gravity="center_horizontal" android:id="@+id/initialTV" android:padding="16dp" android:layout_width="match_parent" android:layout_height="match_parent" android:text="@string/tap_on_word_for_meaning"/>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
