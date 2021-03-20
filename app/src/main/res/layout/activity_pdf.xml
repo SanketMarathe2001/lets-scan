@@ -51,6 +51,14 @@
         android:layout_below="@+id/buttonDecryptPdf"
         android:layout_marginTop="10dp"
         android:onClick="Options"/>
+    <Button
+        android:id="@+id/buttonMergePdf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Merge PDF"
+        android:onClick="Options"
+        android:layout_below="@+id/buttonSplitPdf"/>
 
     <TextView
         android:id="@+id/path"

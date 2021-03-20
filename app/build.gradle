@@ -64,7 +64,7 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
     implementation 'com.budiyev.android:code-scanner:2.1.0'
-    implementation 'com.tom_roush:pdfbox-android:1.8.10.1'
+    implementation 'com.tom_roush:pdfbox-android:1.8.10.2'
     implementation 'com.google.firebase:firebase-analytics:18.0.1'
     implementation 'com.google.zxing:core:3.3.3'
     implementation('com.journeyapps:zxing-android-embedded:4.1.0') { transitive = false }

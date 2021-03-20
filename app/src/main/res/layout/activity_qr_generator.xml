@@ -22,20 +22,49 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
 
-    <Button
-        android:id="@+id/gen"
-        android:text="GENERATE"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/shareqr"/>
-    <Button
-        android:id="@+id/shareqr"
-        android:text="SHARE QR CODE"
+    <FrameLayout
         android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:gravity="center">
+        <Button
+            android:layout_gravity="left"
+            android:layout_marginEnd="50dp"
+            android:textSize="12sp"
+            android:textColor="#ffffff"
+            android:id="@+id/shareqr"
+            android:background="@color/primaryColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/share"
+            android:drawableTop="@drawable/ic_share_scroll"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:layout_gravity="center"
+            android:textSize="12sp"
+            android:textColor="#ffffff"
+            android:id="@+id/gen"
+            android:background="@color/primaryColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Generate"
+            android:drawableTop="@drawable/qr_code"
+            android:textAllCaps="false"/>
+
+
+        <Button
+            android:layout_gravity="right"
+            android:textSize="12sp"
+            android:textColor="#ffffff"
+            android:id="@+id/saveqr"
+            android:background="@color/primaryColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:drawableTop="@drawable/ic_dialog_save"
+            android:textAllCaps="false"/>
+    </FrameLayout>
 
 </RelativeLayout>

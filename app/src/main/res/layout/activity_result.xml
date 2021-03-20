@@ -6,16 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".ResultActivity">
 
-    <TextView
-        android:id="@+id/result_text"
-        android:layout_margin="20dp"
-        android:textSize="18sp"
-        android:scrollbars = "vertical"
+
+    <ScrollView
+        android:layout_alignParentTop="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@id/frame"/>
+        android:layout_above="@id/frame"
+        android:foregroundGravity="top">
+        <TextView
+            android:layout_margin="20dp"
+            android:id="@+id/result_text"
+            android:textSize="18sp"
+            android:scrollbars = "vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </ScrollView>
 
     <FrameLayout
         android:id="@+id/frame"

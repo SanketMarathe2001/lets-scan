@@ -42,7 +42,7 @@ import java.util.List;
 
 public class PdfActivity extends AppCompatActivity {
 
-    int encrypted = 1, split = 2, pdfToImage=3, decrypt = 4;
+    int encrypted = 1, split = 2, pdfToImage=3, decrypt = 4, merge = 5;
     TextView txt;
 
     @Override
@@ -209,6 +209,10 @@ public class PdfActivity extends AppCompatActivity {
         else if(view == findViewById(R.id.buttonDecryptPdf)){
             getPDF(decrypt);
         }
+        else
+        {
+            startActivity(new Intent(PdfActivity.this,MergePDF.class));
+        }
     }
 
     private String currentDateFormat() {
@@ -273,38 +277,46 @@ public class PdfActivity extends AppCompatActivity {
             }
             else if(requestCode == 4){
                 try{
+                    String en = "";
                     PDDocument pdd = PDDocument.load(file);
-                    pdd.close();
-                    Toast.makeText(getApplicationContext(),"PDF is not encrypted",Toast.LENGTH_SHORT).show();
+                    if (pdd.isEncrypted()){
+                        en = "encrypted";
+                        AlertDialog.Builder alert = new AlertDialog.Builder(PdfActivity.this);
+
+                        alert.setTitle("Decryption");
+                        alert.setMessage("Write Password");
+
+                        // Set an EditText view to get user input
+                        final EditText input = new EditText(this);
+                        input.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                        InputFilter[] filters = new InputFilter[1];
+                        filters[0] = new InputFilter.LengthFilter(10); //Filter to 10 characters
+                        input.setFilters(filters);
+                        alert.setView(input);
+
+                        final File finalFile = file;
+                        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                String value = input.getText().toString();
+                                // Do something with value!
+                                DecryptPdf(finalFile, value);
+                            }
+                        });
+
+                        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                // Canceled.
+                            }
+                        });
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(),"PDF is not encrypted",Toast.LENGTH_SHORT).show();
+                    }
+                    if (en.equals("encrypted"))
+                        Toast.makeText(getApplicationContext(),"Pdf is encrypted",Toast.LENGTH_SHORT).show();
                 }
                 catch (Exception e){
-                    AlertDialog.Builder alert = new AlertDialog.Builder(PdfActivity.this);
-
-                    alert.setTitle("Decryption");
-                    alert.setMessage("Write Password");
-
-                    // Set an EditText view to get user input
-                    final EditText input = new EditText(this);
-                    input.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    InputFilter[] filters = new InputFilter[1];
-                    filters[0] = new InputFilter.LengthFilter(10); //Filter to 10 characters
-                    input.setFilters(filters);
-                    alert.setView(input);
-
-                    final File finalFile = file;
-                    alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            String value = input.getText().toString();
-                            // Do something with value!
-                            DecryptPdf(finalFile, value);
-                        }
-                    });
-
-                    alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            // Canceled.
-                        }
-                    });
+                    e.printStackTrace();
                 }
             }
         }
@@ -327,7 +339,7 @@ public class PdfActivity extends AppCompatActivity {
             pdd.close();
         }
         catch (Exception e){
-            Toast.makeText(getApplicationContext(),"Some Error occur while decrypting",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Some Error occur while decrypting, Please check the password",Toast.LENGTH_SHORT).show();
         }
     }
 }
