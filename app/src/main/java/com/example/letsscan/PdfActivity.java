@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.tom_roush.pdfbox.multipdf.Splitter;
 import com.tom_roush.pdfbox.pdmodel.PDDocument;
 import com.tom_roush.pdfbox.pdmodel.encryption.AccessPermission;
+import com.tom_roush.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import com.tom_roush.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
 import com.tom_roush.pdfbox.rendering.PDFRenderer;
 import com.tom_roush.pdfbox.util.PDFBoxResourceLoader;
@@ -277,46 +278,39 @@ public class PdfActivity extends AppCompatActivity {
             }
             else if(requestCode == 4){
                 try{
-                    String en = "";
                     PDDocument pdd = PDDocument.load(file);
-                    if (pdd.isEncrypted()){
-                        en = "encrypted";
-                        AlertDialog.Builder alert = new AlertDialog.Builder(PdfActivity.this);
-
-                        alert.setTitle("Decryption");
-                        alert.setMessage("Write Password");
-
-                        // Set an EditText view to get user input
-                        final EditText input = new EditText(this);
-                        input.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                        InputFilter[] filters = new InputFilter[1];
-                        filters[0] = new InputFilter.LengthFilter(10); //Filter to 10 characters
-                        input.setFilters(filters);
-                        alert.setView(input);
-
-                        final File finalFile = file;
-                        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                String value = input.getText().toString();
-                                // Do something with value!
-                                DecryptPdf(finalFile, value);
-                            }
-                        });
-
-                        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                // Canceled.
-                            }
-                        });
+                    if(pdd.isEncrypted()){
                     }
-                    else {
+                    else
                         Toast.makeText(getApplicationContext(),"PDF is not encrypted",Toast.LENGTH_SHORT).show();
-                    }
-                    if (en.equals("encrypted"))
-                        Toast.makeText(getApplicationContext(),"Pdf is encrypted",Toast.LENGTH_SHORT).show();
+                    pdd.close();
                 }
-                catch (Exception e){
-                    e.printStackTrace();
+                catch (InvalidPasswordException e){
+                    AlertDialog.Builder alert = new AlertDialog.Builder(PdfActivity.this);
+
+                    alert.setTitle("Decryption");
+                    alert.setMessage("Write Password");
+
+                    // Set an EditText view to get user input
+                    final EditText input = new EditText(this);
+                    alert.setView(input);
+
+                    final File finalFile = file;
+                    alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            String value = input.getText().toString();
+                            // Do something with value!
+                            DecryptPdf(finalFile, value);
+                        }
+                    });
+
+                    alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            // Canceled.
+                        }
+                    });
+
+                    alert.show();
                 }
             }
         }

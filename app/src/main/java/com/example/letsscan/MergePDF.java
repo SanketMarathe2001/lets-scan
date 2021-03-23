@@ -7,18 +7,29 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.MemoryFile;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tom_roush.pdfbox.io.MemoryUsageSetting;
-import com.tom_roush.pdfbox.multipdf.PDFMergerUtility;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfImportedPage;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.tom_roush.pdfbox.util.PDFBoxResourceLoader;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MergePDF extends AppCompatActivity {
 
@@ -57,24 +68,29 @@ public class MergePDF extends AppCompatActivity {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mergefilename!=null && file1!=null && file2!=null) {
-                    try {
-                        File fileI, fileII;
-                        fileI = new File(file1.getText().toString());
-                        fileII = new File(file2.getText().toString());
-                        //Instantiating PDFMergerUtility class
-                        PDFMergerUtility PDFmerger = new PDFMergerUtility();
+                if(mergefilename.getText()!=null && file1.getText()!=null && file2.getText()!=null) {
+                    try
+                    {
+                        List<InputStream> list = new ArrayList<InputStream>();
 
-                        //Setting the destination file
-                        PDFmerger.setDestinationFileName((Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)).getAbsolutePath() + "/" +mergefilename.getText().toString()+".pdf");
+                        InputStream inputStreamOne = new FileInputStream(new File(file1.getText().toString()));
+                        list.add(inputStreamOne);
+                        InputStream inputStreamTwo = new FileInputStream(new File(file2.getText().toString()));
+                        list.add(inputStreamTwo);
 
-                        //adding the source files
-                        PDFmerger.addSource(fileI);
-                        PDFmerger.addSource(fileII);
-
-                        //Merging the two documents
-                        PDFmerger.mergeDocuments(true);
-                    } catch (Exception e) {
+                        OutputStream outputStream = new FileOutputStream(new File("/storage/emulated/0/Download/"+mergefilename+".pdf"));
+                        mergePdf(list, outputStream);
+                    }
+                    catch (FileNotFoundException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    catch (DocumentException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    catch (IOException e)
+                    {
                         e.printStackTrace();
                     }
                 }
@@ -117,5 +133,29 @@ public class MergePDF extends AppCompatActivity {
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private static void mergePdf(List<InputStream> list, OutputStream outputStream) throws DocumentException, IOException
+    {
+            Document document = new Document();
+
+        PdfWriter pdfWriter = PdfWriter.getInstance(document, outputStream);
+        document.open();
+        PdfContentByte pdfContentByte = pdfWriter.getDirectContent();
+
+        for (InputStream inputStream : list)
+        {
+            PdfReader pdfReader = new PdfReader(inputStream);
+            for (int i = 1; i <= pdfReader.getNumberOfPages(); i++)
+            {
+                document.newPage();
+                PdfImportedPage page = pdfWriter.getImportedPage(pdfReader, i);
+                pdfContentByte.addTemplate(page, 0, 0);
+            }
+        }
+
+        outputStream.flush();
+        document.close();
+        outputStream.close();
     }
 }
