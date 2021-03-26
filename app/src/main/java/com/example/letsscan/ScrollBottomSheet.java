@@ -157,7 +157,7 @@ public class ScrollBottomSheet extends BottomSheetDialogFragment implements UiTh
 
     /* access modifiers changed from: private */
     public void savePDFnotify(ArrayList<Uri> arrayList) {
-        Toast.makeText(this.context, "Saved to Documents/AIR Scanner", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.context, "Saved to Documents/Let's Scan", Toast.LENGTH_SHORT).show();
         dismiss();
     }
 

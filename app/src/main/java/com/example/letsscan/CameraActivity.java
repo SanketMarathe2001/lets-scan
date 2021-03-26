@@ -175,9 +175,16 @@ public class CameraActivity extends AppCompatActivity implements UiThreadCallbac
         builder.setTargetAspectRatio(this.aspectRatioNormal);
         builder.setFlashMode(FlashMode.AUTO);
 
-        Log.d("MYTAG", "Index 1 & height, width:" + size.getHeight() + "" + size.getWidth());
-        builder.setTargetResolution(size);
-
+        if (SplashActivity.preferences.get(1).equals(1)) {
+            Log.d("MYTAG", "Index 1 & height, width:" + size2.getHeight() + "" + size2.getWidth());
+            builder.setTargetResolution(size2);
+        } else if (SplashActivity.preferences.get(1).equals(2)) {
+            Log.d("MYTAG", "Index 1 & height, width:" + size3.getHeight() + "" + size3.getWidth());
+            builder.setTargetResolution(size3);
+        } else {
+            Log.d("MYTAG", "Index 1 & height, width:" + size.getHeight() + "" + size.getWidth());
+            builder.setTargetResolution(size);
+        };
         ImageCapture imageCapture = new ImageCapture(builder.build());
         this.imgCap = imageCapture;
         imageCapture.setFlashMode(FlashMode.AUTO);
