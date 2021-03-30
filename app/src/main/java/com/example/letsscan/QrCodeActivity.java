@@ -2,6 +2,8 @@ package com.example.letsscan;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
@@ -15,6 +17,7 @@ import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
+import com.tom_roush.pdfbox.util.PDFBoxResourceLoader;
 
 public class QrCodeActivity extends AppCompatActivity {
 
@@ -26,14 +29,6 @@ public class QrCodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_code);
         gen_qr = findViewById(R.id.gen_qr);
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-            {
-                requestPermissions(new String[]{Manifest.permission.CAMERA}, 100);
-            }
-        }
 
             CodeScannerView scannerView = findViewById(R.id.scanner_view);
             mCodeScanner = new CodeScanner(this, scannerView);
@@ -72,6 +67,21 @@ public class QrCodeActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setup();
+    }
 
+    private void setup() {
+
+        if (ContextCompat.checkSelfPermission(QrCodeActivity.this,
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+        {
+
+            ActivityCompat.requestPermissions(QrCodeActivity.this,
+                    new String[] {Manifest.permission.CAMERA}, 1);
+        }
+    }
 
 }

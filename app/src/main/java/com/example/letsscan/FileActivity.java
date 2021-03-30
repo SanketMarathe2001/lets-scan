@@ -40,6 +40,7 @@ import com.example.letsscan.TP_Callables.PDFImportCallable;
 import com.example.letsscan.ThreadPoolManager.CustomThreadPoolManager;
 import com.example.letsscan.ThreadPoolManager.UiThreadCallback;
 import com.example.letsscan.Views.FileDialog;
+import com.example.letsscan.pdfTest.TestActivity;
 import com.example.letsscan.recycler_views.FileData;
 import com.example.letsscan.recycler_views.FilesRecyclerView;
 import com.google.android.material.navigation.NavigationView;
@@ -492,7 +493,7 @@ public class FileActivity extends AppCompatActivity implements FilesRecyclerView
                 break;
 
             case R.id.pdf_tool:
-                startActivity(new Intent(this,PdfActivity.class));
+                startActivity(new Intent(this, TestActivity.class));
                 break;
             case R.id.nav_settings :
                 //startActivity(new Intent(this, SettingActivity.class));
