@@ -31,6 +31,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.multidex.BuildConfig;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -477,16 +478,8 @@ public class FileActivity extends AppCompatActivity implements FilesRecyclerView
         switch (menuItem.getItemId()) {
 
             case R.id.nav_refer :
-                try {
-                    Intent intent2 = new Intent("android.intent.action.SEND");
-                    intent2.setType(HTTP.PLAIN_TEXT_TYPE);
-                    intent2.putExtra("android.intent.extra.SUBJECT", "My application name");
-                    intent2.putExtra("android.intent.extra.TEXT", "\nHey!\nSee, I found a fantastic app. It's a Powerful Document Scanner with Single-tap AI Dictionary & Narrator.\nYou can download it from:\n" + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n");
-                    startActivity(Intent.createChooser(intent2, "choose one"));
-                    break;
-                } catch (Exception unused2) {
-                    break;
-                }
+                startActivity(new Intent(FileActivity.this,AboutUsActivity.class));
+                break;
 
             case R.id.nav_qr_code:
                 startActivity(new Intent(this,QrCodeActivity.class));

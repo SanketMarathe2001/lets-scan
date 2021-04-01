@@ -9,6 +9,6 @@
         <item android:icon="@drawable/ic_pdf_file_act" android:id="@+id/pdf_tool" android:title="PDF Tools"/>
         <item android:icon="@drawable/ocr" android:id="@+id/ocr_option" android:title="OCR"/>
         <item android:icon="@drawable/ic_twotone_menu_book_24" android:id="@+id/nav_tutorial" android:title="@string/how_to_use"/>
-        <item android:icon="@drawable/ic_twotone_share_24" android:id="@+id/nav_refer" android:title="@string/share_this_app"/>
+        <item android:icon="@drawable/about_us" android:id="@+id/nav_refer" android:title="About Us"/>
     </group>
 </menu>

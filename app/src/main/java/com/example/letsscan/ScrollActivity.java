@@ -199,6 +199,8 @@ public class ScrollActivity extends AppCompatActivity implements FileDialog.File
     }
 
     public void hideBtn() {
+        this.save_btn.setVisibility(View.VISIBLE);
+        this.share_btn.setVisibility(View.VISIBLE);
         this.btnSetTopRightLL.setVisibility(View.VISIBLE);
         this.btnSetTopRightLL.setClickable(true);
         this.select_all_btn.setVisibility(View.GONE);
@@ -210,6 +212,8 @@ public class ScrollActivity extends AppCompatActivity implements FileDialog.File
     }
 
     public void showBtn() {
+        this.save_btn.setVisibility(View.GONE);
+        this.share_btn.setVisibility(View.GONE);
         this.btnSetTopRightLL.setVisibility(View.GONE);
         this.btnSetTopRightLL.setClickable(false);
         this.select_all_btn.setVisibility(View.VISIBLE);

@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".pdfTest.TestActivity"></activity>
+        <activity android:name=".AboutUsActivity"></activity>
+        <activity android:name=".pdfTest.TestActivity" />
         <activity android:name=".MergePDF" />
         <activity android:name=".QrGeneratorActivity" />
         <activity android:name=".SplashActivity">
