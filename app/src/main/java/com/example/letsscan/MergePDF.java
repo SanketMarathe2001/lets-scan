@@ -2,8 +2,10 @@ package com.example.letsscan;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -51,6 +53,12 @@ public class MergePDF extends AppCompatActivity {
         txt2=(EditText)findViewById(R.id.txtsecondpdf);
         bt1=(Button)findViewById(R.id.bt1);
         bt2=(Button)findViewById(R.id.bt2);
+        Toolbar toolbar = findViewById(R.id.merge_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        setTitle("MERGE PDF");
+        toolbar.setTitleTextColor(Color.WHITE);
         bt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +76,11 @@ public class MergePDF extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
     public void mergePdfFiles(View view){
         try {

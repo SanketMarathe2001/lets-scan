@@ -62,6 +62,7 @@ public class ScrollActivity extends AppCompatActivity implements FileDialog.File
         setContentView((int) R.layout.activity_scroll);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar_scroll_act));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         this.path_list = getIntent().getStringArrayListExtra("pathlist");
         this.file_name = getIntent().getStringExtra("name");
         getIntent().removeExtra("pathlist");

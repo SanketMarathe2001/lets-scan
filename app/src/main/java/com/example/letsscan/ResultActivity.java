@@ -1,10 +1,12 @@
 package com.example.letsscan;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -36,6 +38,13 @@ public class ResultActivity extends AppCompatActivity {
         url = findViewById(R.id.url);
 
         result_text.setText(result);
+        Toolbar toolbar = findViewById(R.id.result_tool);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        setTitle("RESULT");
+        toolbar.setTitleTextColor(Color.WHITE);
+
 
         if(URLUtil.isValidUrl(result)){
          url.setVisibility(View.VISIBLE);
@@ -71,5 +80,11 @@ public class ResultActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

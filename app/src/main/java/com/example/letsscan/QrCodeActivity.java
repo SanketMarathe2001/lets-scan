@@ -2,12 +2,14 @@ package com.example.letsscan;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +31,12 @@ public class QrCodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_code);
         gen_qr = findViewById(R.id.gen_qr);
+        Toolbar toolbar = findViewById(R.id.qr_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        setTitle("QR CODE SCANNING");
+        toolbar.setTitleTextColor(Color.WHITE);
 
             CodeScannerView scannerView = findViewById(R.id.scanner_view);
             mCodeScanner = new CodeScanner(this, scannerView);
@@ -68,13 +76,14 @@ public class QrCodeActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        setup();
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
-    private void setup() {
-
+    @Override
+    protected void onStart() {
+        super.onStart();
         if (ContextCompat.checkSelfPermission(QrCodeActivity.this,
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
         {
@@ -83,5 +92,4 @@ public class QrCodeActivity extends AppCompatActivity {
                     new String[] {Manifest.permission.CAMERA}, 1);
         }
     }
-
 }

@@ -345,6 +345,7 @@ public class TestActivity extends AppCompatActivity {
 
             // Close the PDF file
             pdd.close();
+            Toast.makeText(getApplicationContext(),"PDF Decrypted",Toast.LENGTH_SHORT).show();
         }
         catch (Exception e){
             Toast.makeText(getApplicationContext(),"Some Error occur while decrypting, Please check the password",Toast.LENGTH_SHORT).show();

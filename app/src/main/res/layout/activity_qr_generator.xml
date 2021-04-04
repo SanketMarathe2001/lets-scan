@@ -6,13 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".QrGeneratorActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/qr_gen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primaryColor"
+        app:theme="@style/ToolbarColored">
+
+    </androidx.appcompat.widget.Toolbar>
+
     <EditText
+        android:layout_below="@+id/qr_gen"
         android:id="@+id/code"
         android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:hint="Enter Text"
+        android:scrollbars="vertical"
+        android:maxLines="4"
         />
 
     <ImageView

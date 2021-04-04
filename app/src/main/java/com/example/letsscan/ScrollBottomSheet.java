@@ -1,6 +1,7 @@
 package com.example.letsscan;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,9 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.example.letsscan.TP_Callables.ImageCallable;
 import com.example.letsscan.TP_Callables.PDFCallable;
@@ -24,6 +29,11 @@ import com.example.letsscan.ThreadPoolManager.CustomThreadPoolManager;
 import com.example.letsscan.ThreadPoolManager.UiThreadCallback;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.tabs.TabLayout;
+import com.tom_roush.pdfbox.pdmodel.PDDocument;
+import com.tom_roush.pdfbox.pdmodel.encryption.AccessPermission;
+import com.tom_roush.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
+import com.tom_roush.pdfbox.util.PDFBoxResourceLoader;
+
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -36,11 +46,12 @@ public class ScrollBottomSheet extends BottomSheetDialogFragment implements UiTh
     int key;
     CustomThreadPoolManager mCustomThreadPoolManager;
     private BottomSheetListener mListener;
-    String name;
+    public String name;
     ArrayList<String> pathlist;
     int quality = 30;
     String type = "pdf";
     UiHandler_FA uiHandler;
+    public ToggleButton lock;
 
     public interface BottomSheetListener {
         void onButtonClicked(String str, int i);
@@ -58,6 +69,8 @@ public class ScrollBottomSheet extends BottomSheetDialogFragment implements UiTh
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().build());
         final LinearLayout linearLayout = (LinearLayout) inflate.findViewById(R.id.post_press);
         final LinearLayout linearLayout2 = (LinearLayout) inflate.findViewById(R.id.pre_press);
+        PDFBoxResourceLoader.init(this.context);
+        lock = inflate.findViewById(R.id.lock);
         this.uiHandler = new UiHandler_FA(Looper.getMainLooper(), this);
         ((Button) inflate.findViewById(R.id.save_share_btn_frag)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -84,8 +97,10 @@ public class ScrollBottomSheet extends BottomSheetDialogFragment implements UiTh
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tabLayout.getSelectedTabPosition() == 0) {
                     ScrollBottomSheet.this.type = "pdf";
+                    lock.setVisibility(View.VISIBLE);
                 } else {
                     ScrollBottomSheet.this.type = "image";
+                    lock.setVisibility(View.INVISIBLE);
                 }
                 Log.d("TYPE", ScrollBottomSheet.this.type);
             }
@@ -142,7 +157,7 @@ public class ScrollBottomSheet extends BottomSheetDialogFragment implements UiTh
             ScrollBottomSheet scrollBottomSheet = (ScrollBottomSheet) this.mTarget.get();
             Log.d("MYTAG", "Back 2 UI thread");
             Bundle data = message.getData();
-            ArrayList parcelableArrayList = data.getParcelableArrayList("uri");
+            ArrayList<Uri> parcelableArrayList = data.getParcelableArrayList("uri");
             String string = data.getString("type");
             int i = message.what;
             if (i != 2) {
@@ -150,13 +165,17 @@ public class ScrollBottomSheet extends BottomSheetDialogFragment implements UiTh
                     scrollBottomSheet.sharePDFnow(parcelableArrayList, string);
                 }
             } else if (scrollBottomSheet != null) {
-                scrollBottomSheet.savePDFnotify(parcelableArrayList);
+                scrollBottomSheet.savePDFnotify(string);
             }
         }
     }
 
     /* access modifiers changed from: private */
-    public void savePDFnotify(ArrayList<Uri> arrayList) {
+    public void savePDFnotify(String str) {
+        if(str.equals("pdf") && lock.getText().toString().equals("LOCK")){
+            Toast.makeText(this.context,name,Toast.LENGTH_SHORT).show();
+            File file = new File(Environment.getExternalStorageDirectory() + "/documents/Let's Scan/PDF/"+name+".pdf");
+        }
         Toast.makeText(this.context, "Saved to Documents/Let's Scan", Toast.LENGTH_SHORT).show();
         dismiss();
     }
@@ -205,6 +224,41 @@ public class ScrollBottomSheet extends BottomSheetDialogFragment implements UiTh
         ImageCallable imageCallable = new ImageCallable(arrayList2, this.context, str, i, i2);
         imageCallable.setCustomThreadPoolManager(this.mCustomThreadPoolManager);
         this.mCustomThreadPoolManager.addCallable(imageCallable);
+    }
+
+    public void EncryptPdf(File file,String password) {
+
+        try
+        {
+            PDDocument document = PDDocument.load(file);
+
+            //Creating access permission object
+            AccessPermission ap = new AccessPermission();
+
+            //Creating StandardProtectionPolicy object
+            StandardProtectionPolicy spp = new StandardProtectionPolicy(password, password, ap);
+
+            //Setting the length of the encryption key
+            spp.setEncryptionKeyLength(128);
+
+            //Setting the access permissions
+            spp.setPermissions(ap);
+
+            //Protecting the document
+            document.protect(spp);
+
+            System.out.println("Document encrypted");
+
+            //Saving the document
+            document.save(file.getAbsolutePath());
+            //Closing the document
+            document.close();
+            Toast.makeText(this.context,"Pdf Encrypted",Toast.LENGTH_SHORT).show();
+
+        }
+        catch (Exception e){
+            Log.d("PdfBox-Android-Sample", "Exception thrown while encrypting file", e);
+        }
     }
 
     public void onActivityResult(int i, int i2, Intent intent) {

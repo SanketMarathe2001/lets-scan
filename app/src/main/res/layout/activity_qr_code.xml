@@ -7,14 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".QrCodeActivity">
 
-    <androidx.appcompat.widget.Toolbar android:id="@+id/tool" android:background="@color/primaryColor" android:layout_width="match_parent" android:layout_height="?attr/actionBarSize" app:theme="@style/ToolbarColored">
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="QR CODE SCANNING" android:textColor="@color/whiteColor" android:textSize="20dp"/>
+    <androidx.appcompat.widget.Toolbar android:id="@+id/qr_toolbar" android:background="@color/primaryColor" android:layout_width="match_parent" android:layout_height="?attr/actionBarSize" app:theme="@style/ToolbarColored">
         <Button android:layout_gravity="right|center_vertical|center_horizontal|center|end" android:id="@+id/gen_qr" android:layout_width="wrap_content" android:layout_height="wrap_content" android:drawableTop="@drawable/qr_code" android:backgroundTint="@color/primaryColor"
            android:text="Generate QR" android:textSize="10sp"/>
     </androidx.appcompat.widget.Toolbar>
 
     <com.budiyev.android.codescanner.CodeScannerView
-        android:layout_below="@id/tool"
+        android:layout_below="@id/qr_toolbar"
         android:id="@+id/scanner_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

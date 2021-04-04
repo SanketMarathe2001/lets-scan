@@ -2,6 +2,7 @@ package com.example.letsscan;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
 import android.Manifest;
@@ -10,6 +11,7 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,7 +38,6 @@ public class OcrActivity extends AppCompatActivity {
     ImageView ocr_image;
     Button gallery,camera,ocr;
     Bitmap bitmap;
-    RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +48,12 @@ public class OcrActivity extends AppCompatActivity {
         gallery = findViewById(R.id.gallery_button);
         camera = findViewById(R.id.camera_button);
         ocr = findViewById(R.id.ocr_1);
-        relativeLayout = findViewById(R.id.container_2);
-
+        Toolbar toolbar = findViewById(R.id.ocr_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        setTitle("OCR");
+        toolbar.setTitleTextColor(Color.WHITE);
         ocr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,5 +142,10 @@ public class OcrActivity extends AppCompatActivity {
         catch (Exception ex){
             ex.printStackTrace();
         }
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

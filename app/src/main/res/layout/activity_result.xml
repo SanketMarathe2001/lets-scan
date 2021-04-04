@@ -6,20 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".ResultActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/result_tool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/primaryColor"
+        app:theme="@style/ToolbarColored">
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
-        android:layout_alignParentTop="true"
-        android:layout_width="wrap_content"
+        android:layout_marginTop="55dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/frame"
+        android:layout_alignParentTop="true"
         android:foregroundGravity="top">
+
         <TextView
-            android:layout_margin="20dp"
             android:id="@+id/result_text"
-            android:textSize="18sp"
-            android:scrollbars = "vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:scrollbars="vertical"
+            android:textSize="18sp" />
     </ScrollView>
 
     <FrameLayout

@@ -1,10 +1,12 @@
 package com.example.letsscan;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -36,6 +38,12 @@ public class QrGeneratorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_generator);
+        Toolbar toolbar = findViewById(R.id.qr_gen);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        setTitle("QR GENERATOR");
+        toolbar.setTitleTextColor(Color.WHITE);
         code = findViewById(R.id.code);
         qr_code = findViewById(R.id.qr_code);
         btn = findViewById(R.id.gen);
@@ -122,6 +130,12 @@ public class QrGeneratorActivity extends AppCompatActivity {
              }
          });
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     private String currentDateFormat() {

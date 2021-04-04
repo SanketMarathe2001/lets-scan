@@ -15,7 +15,7 @@
 
     </androidx.appcompat.widget.Toolbar>
     <GridView
-        android:layout_marginTop="5dp"
+        android:layout_margin="10dp"
         android:layout_below="@id/test"
         android:id="@+id/idGVcourses"
         android:layout_width="match_parent"

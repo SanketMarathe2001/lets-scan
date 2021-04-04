@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android= "http://schemas.android.com/apk/res/android"
-    xmlns:tools= "http://schemas.android.com/tools"
-    android:layout_width= "match_parent"
-    android:layout_height= "wrap_content"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:stretchColumns="*"
-    android:layout_gravity= "center_vertical"
-    android:background="#3f18c1d2"
-    >
-
+    android:layout_gravity="center_vertical">
+    <TableRow>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/merge_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_span="5"
+            android:background="@color/primaryColor"
+            app:theme="@style/ToolbarColored">
+        </androidx.appcompat.widget.Toolbar>
+    </TableRow>
     <TableRow>
         <EditText
             android:id="@+id/txtfirstpdf"
