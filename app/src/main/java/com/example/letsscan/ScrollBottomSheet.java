@@ -51,7 +51,6 @@ public class ScrollBottomSheet extends BottomSheetDialogFragment implements UiTh
     int quality = 30;
     String type = "pdf";
     UiHandler_FA uiHandler;
-    public ToggleButton lock;
 
     public interface BottomSheetListener {
         void onButtonClicked(String str, int i);
@@ -69,8 +68,7 @@ public class ScrollBottomSheet extends BottomSheetDialogFragment implements UiTh
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().build());
         final LinearLayout linearLayout = (LinearLayout) inflate.findViewById(R.id.post_press);
         final LinearLayout linearLayout2 = (LinearLayout) inflate.findViewById(R.id.pre_press);
-        PDFBoxResourceLoader.init(this.context);
-        lock = inflate.findViewById(R.id.lock);
+
         this.uiHandler = new UiHandler_FA(Looper.getMainLooper(), this);
         ((Button) inflate.findViewById(R.id.save_share_btn_frag)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -97,10 +95,8 @@ public class ScrollBottomSheet extends BottomSheetDialogFragment implements UiTh
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tabLayout.getSelectedTabPosition() == 0) {
                     ScrollBottomSheet.this.type = "pdf";
-                    lock.setVisibility(View.VISIBLE);
                 } else {
                     ScrollBottomSheet.this.type = "image";
-                    lock.setVisibility(View.INVISIBLE);
                 }
                 Log.d("TYPE", ScrollBottomSheet.this.type);
             }
@@ -172,10 +168,6 @@ public class ScrollBottomSheet extends BottomSheetDialogFragment implements UiTh
 
     /* access modifiers changed from: private */
     public void savePDFnotify(String str) {
-        if(str.equals("pdf") && lock.getText().toString().equals("LOCK")){
-            Toast.makeText(this.context,name,Toast.LENGTH_SHORT).show();
-            File file = new File(Environment.getExternalStorageDirectory() + "/documents/Let's Scan/PDF/"+name+".pdf");
-        }
         Toast.makeText(this.context, "Saved to Documents/Let's Scan", Toast.LENGTH_SHORT).show();
         dismiss();
     }

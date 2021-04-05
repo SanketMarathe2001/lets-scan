@@ -23,17 +23,6 @@
             </LinearLayout>
         </LinearLayout>
         <LinearLayout android:gravity="end" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="10dp" android:layout_marginTop="4dp" android:layout_marginRight="10dp">
-            <ToggleButton
-                android:id="@+id/lock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:background="@drawable/round_btn_dialog_cancel"
-                android:minWidth="80dp"
-                android:textOff="UNLOCK"
-                android:textOn="LOCK"
-                android:minHeight="36dp"
-                android:layout_marginRight="50dp"/>
             <Button android:textColor="@color/additionalTextColor" android:layout_gravity="start" android:id="@+id/cancel_fragment" android:background="@drawable/round_btn_dialog_cancel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="80dp" android:minHeight="36dp" android:text="@string/cancel" android:textAllCaps="true" android:layout_marginEnd="10dp" android:stateListAnimator="@null"/>
             <Button android:textColor="@color/additionalTextColor" android:layout_gravity="end" android:id="@+id/save_share_btn_frag" android:background="@drawable/round_btn_dialog_ok" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="80dp" android:minHeight="36dp" android:text="@string/done" android:textAllCaps="true" android:stateListAnimator="@null"/>
         </LinearLayout>
