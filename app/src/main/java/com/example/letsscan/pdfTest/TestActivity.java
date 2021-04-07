@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.letsscan.MergePDF;
@@ -48,12 +49,14 @@ public class TestActivity extends AppCompatActivity {
 
     GridView coursesGV;
     int encrypted = 5, splits = 2, pdfToImage= 1, decrypt = 4;
+    RelativeLayout relative;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pdf_main);
         coursesGV = findViewById(R.id.idGVcourses);
+        relative = findViewById(R.id.relative);
 
         Toolbar toolbar = findViewById(R.id.test);
         setSupportActionBar(toolbar);
@@ -168,23 +171,30 @@ public class TestActivity extends AppCompatActivity {
                 filters[0] = new InputFilter.LengthFilter(10); //Filter to 10 characters
                 input.setFilters(filters);
                 alert.setView(input);
-
+                AlertDialog alertDialog;
                 final File finalFile = file;
                 alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String value = input.getText().toString();
-                        // Do something with value!
-                        EncryptPdf(finalFile, value);
+                        if(!value.isEmpty()){
+                        EncryptPdf(finalFile, value);}
+                        else{
+                            alert.setMessage("Please Don't Leave it blank.");
+                        }
                     }
                 });
 
                 alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // Canceled.
+                        dialog.cancel();
                     }
                 });
 
-                alert.show();
+                alertDialog = alert.create();
+                alertDialog.show();
+                alertDialog.setCanceledOnTouchOutside(false);
+
             } else if (requestCode == splits) {
                 splitPdf(file);
             } else if (requestCode == pdfToImage) {
@@ -208,13 +218,16 @@ public class TestActivity extends AppCompatActivity {
                     // Set an EditText view to get user input
                     final EditText input = new EditText(this);
                     alert.setView(input);
-
+                    AlertDialog alertDialog;
                     final File finalFile = file;
                     alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             String value = input.getText().toString();
-                            // Do something with value!
-                            DecryptPdf(finalFile, value);
+                            if(!value.isEmpty()){
+                                DecryptPdf(finalFile, value);}
+                            else{
+                                alert.setMessage("Please Don't Leave it blank.");
+                            }
                         }
                     });
 
@@ -224,7 +237,9 @@ public class TestActivity extends AppCompatActivity {
                         }
                     });
 
-                    alert.show();
+                    alertDialog = alert.create();
+                    alertDialog.show();
+                    alertDialog.setCanceledOnTouchOutside(false);
                 }
             }
         }
@@ -346,6 +361,9 @@ public class TestActivity extends AppCompatActivity {
             // Close the PDF file
             pdd.close();
             Toast.makeText(getApplicationContext(),"PDF Decrypted",Toast.LENGTH_SHORT).show();
+        }
+        catch (InvalidPasswordException e){
+            Toast.makeText(getApplicationContext(),"Password given by you not matched.",Toast.LENGTH_SHORT).show();
         }
         catch (Exception e){
             Toast.makeText(getApplicationContext(),"Some Error occur while decrypting, Please check the password",Toast.LENGTH_SHORT).show();

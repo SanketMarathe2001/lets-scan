@@ -496,7 +496,7 @@ public class FileActivity extends AppCompatActivity implements FilesRecyclerView
                 break;
             case R.id.nav_tutorial :
                 Intent intent3 = new Intent("android.intent.action.VIEW");
-                intent3.setData(Uri.parse("http://tiny.cc/air_app_scanner_htu"));
+                intent3.setData(Uri.parse("https://drive.google.com/file/d/1KC7YWDcbg4OAvLvf23Uuj4PaCV3P_0Rl/view"));
                 startActivity(intent3);
                 break;
 
