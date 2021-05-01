@@ -492,7 +492,7 @@ public class FileActivity extends AppCompatActivity implements FilesRecyclerView
                 startActivity(new Intent(this, TestActivity.class));
                 break;
             case R.id.nav_settings :
-                //startActivity(new Intent(this, SettingActivity.class));
+                startActivity(new Intent(this, SettingActivity.class));
                 break;
             case R.id.nav_tutorial :
                 Intent intent3 = new Intent("android.intent.action.VIEW");

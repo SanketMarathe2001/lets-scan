@@ -3,6 +3,9 @@ package com.example.letsscan;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentManager;
 
 import android.Manifest;
@@ -11,11 +14,14 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -24,6 +30,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.letsscan.Dictionary.DictPagerActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.ml.vision.FirebaseVision;
@@ -31,6 +38,7 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
+import java.io.File;
 import java.io.IOException;
 
 public class OcrActivity extends AppCompatActivity {
@@ -38,6 +46,8 @@ public class OcrActivity extends AppCompatActivity {
     ImageView ocr_image;
     Button gallery,camera,ocr;
     Bitmap bitmap;
+    File photoFile = null;
+    String mCurrentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +78,14 @@ public class OcrActivity extends AppCompatActivity {
                             public void onSuccess(FirebaseVisionText result) {
                                 // Task completed successfully
                                 // ...
-                                Intent intent = new Intent(OcrActivity.this, ResultActivity.class);
-                                intent.putExtra("result", result.getText());
-                                startActivity(intent);
+                                if(!result.getText().equals("")){
+                                    Intent intent = new Intent(OcrActivity.this, ResultActivity.class);
+                                    intent.putExtra("result", result.getText());
+                                    startActivity(intent);
+                                }
+                                else
+                                    Toast.makeText(getApplicationContext(),"Text not found",Toast.LENGTH_SHORT).show();
+
                             }
                         })
                         .addOnFailureListener(
@@ -89,24 +104,31 @@ public class OcrActivity extends AppCompatActivity {
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(OcrActivity.this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+                }
+                else
+                {
+                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                        // Create the File where the photo should go
+                        try {
 
-                if (Build.VERSION.SDK_INT >= 23) {
-                    if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-                    {
-                        requestPermissions(new String[]{Manifest.permission.CAMERA}, 100);
-                    }
-                    else
-                    {
-                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(cameraIntent, 102);
-                    }
-                }
-                else{
-                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, 102);
-                }
+                            photoFile = createImageFile();
+                            Log.i("Mayank",photoFile.getAbsolutePath());
+
+                            // Continue only if the File was successfully created
+                            if (photoFile != null) {
+                                Uri photoURI = FileProvider.getUriForFile(getApplicationContext(), BuildConfig.APPLICATION_ID + ".provider", photoFile);
+                                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                                startActivityForResult(takePictureIntent, 102);
+                            }
+                        } catch (Exception ex) {
+                            // Error occurred while creating the File
+                             }
 
             }
+        } }
         });
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +145,6 @@ public class OcrActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         try {
             Uri imageUri = data.getData();
-            Bundle extras = data.getExtras();
             if (resultCode == RESULT_OK && requestCode == 101) {
                 ocr_image.setImageURI(imageUri);
                 try {
@@ -133,9 +154,9 @@ public class OcrActivity extends AppCompatActivity {
                 }
                 ocr.setVisibility(View.VISIBLE);
             } else if (resultCode == RESULT_OK && requestCode == 102) {
-                assert extras != null;
-                bitmap = (Bitmap) extras.get("data");
-                ocr_image.setImageBitmap(bitmap);
+                Bitmap myBitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+                bitmap = myBitmap;
+                ocr_image.setImageBitmap(myBitmap);
                 ocr.setVisibility(View.VISIBLE);
             }
         }
@@ -148,4 +169,19 @@ public class OcrActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String imageFileName = "images";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
 }
+

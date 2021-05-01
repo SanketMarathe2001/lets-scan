@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -49,6 +50,7 @@ public class TestActivity extends AppCompatActivity {
 
     GridView coursesGV;
     int encrypted = 5, splits = 2, pdfToImage= 1, decrypt = 4;
+    LinearLayout stop;
     RelativeLayout relative;
 
     @Override
@@ -57,6 +59,7 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.pdf_main);
         coursesGV = findViewById(R.id.idGVcourses);
         relative = findViewById(R.id.relative);
+        stop = findViewById(R.id.stop);
 
         Toolbar toolbar = findViewById(R.id.test);
         setSupportActionBar(toolbar);
@@ -159,6 +162,7 @@ public class TestActivity extends AppCompatActivity {
             }
 
             if (requestCode == encrypted) {
+                if(!checkencrypt(file)){
                 AlertDialog.Builder alert = new AlertDialog.Builder(TestActivity.this);
 
                 alert.setTitle("Encryption");
@@ -178,9 +182,8 @@ public class TestActivity extends AppCompatActivity {
                         String value = input.getText().toString();
                         if(!value.isEmpty()){
                         EncryptPdf(finalFile, value);}
-                        else{
-                            alert.setMessage("Please Don't Leave it blank.");
-                        }
+                        else
+                            Toast.makeText(getApplicationContext(),"You can't leave it blank. Do Operation Again",Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -194,11 +197,20 @@ public class TestActivity extends AppCompatActivity {
                 alertDialog = alert.create();
                 alertDialog.show();
                 alertDialog.setCanceledOnTouchOutside(false);
-
+                }
+                else
+                    Toast.makeText(getApplicationContext(),"PDF is encrypted, So we can't perform this operation.",Toast.LENGTH_SHORT).show();
             } else if (requestCode == splits) {
+                if(!checkencrypt(file))
                 splitPdf(file);
+                else
+                    Toast.makeText(getApplicationContext(),"PDF is encrypted, So we can't perform this operation.",Toast.LENGTH_SHORT).show();
             } else if (requestCode == pdfToImage) {
-                renderFile(file);
+                if(!checkencrypt(file))
+                    renderFile(file);
+                else
+                    Toast.makeText(getApplicationContext(),"PDF is encrypted, So we can't perform this operation.",Toast.LENGTH_SHORT).show();
+
             }
             else if(requestCode == decrypt){
                 try{
@@ -225,9 +237,8 @@ public class TestActivity extends AppCompatActivity {
                             String value = input.getText().toString();
                             if(!value.isEmpty()){
                                 DecryptPdf(finalFile, value);}
-                            else{
-                                alert.setMessage("Please Don't Leave it blank.");
-                            }
+                            else
+                                Toast.makeText(getApplicationContext(),"You can't leave it blank. Do Operation Again",Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -255,6 +266,7 @@ public class TestActivity extends AppCompatActivity {
             folder.mkdir();
         }
         try{
+            stop.setVisibility(View.VISIBLE);
             PDDocument document = PDDocument.load(file);
 
             //Instantiating Splitter class
@@ -274,6 +286,7 @@ public class TestActivity extends AppCompatActivity {
             }
             System.out.println("Multiple PDF’s created");
             document.close();
+            stop.setVisibility(View.INVISIBLE);
             Toast.makeText(getApplicationContext(),"Collection of pdfs available at "+folder.getAbsolutePath(),Toast.LENGTH_SHORT).show();
         }
         catch (Exception e){
@@ -285,6 +298,7 @@ public class TestActivity extends AppCompatActivity {
 
         try
         {
+            stop.setVisibility(View.VISIBLE);
             PDDocument document = PDDocument.load(file);
 
             //Creating access permission object
@@ -308,6 +322,7 @@ public class TestActivity extends AppCompatActivity {
             document.save(file.getAbsolutePath());
             //Closing the document
             document.close();
+            stop.setVisibility(View.INVISIBLE);
             Toast.makeText(getApplicationContext(),"Pdf Encrypted",Toast.LENGTH_SHORT).show();
 
         }
@@ -323,6 +338,7 @@ public class TestActivity extends AppCompatActivity {
             folder.mkdir();
         }
         try {
+            stop.setVisibility(View.VISIBLE);
             // Load in an already created PDF
             PDDocument document = PDDocument.load(file);
             // Create a renderer for the document
@@ -340,6 +356,7 @@ public class TestActivity extends AppCompatActivity {
                 pageImage.compress(Bitmap.CompressFormat.JPEG, 100, fileOut);
                 fileOut.close();
             }
+            stop.setVisibility(View.INVISIBLE);
             Toast.makeText(getApplicationContext(),"Images available at "+folder.getAbsolutePath(),Toast.LENGTH_SHORT).show();
         }
         catch (IOException e)
@@ -350,6 +367,7 @@ public class TestActivity extends AppCompatActivity {
 
     private void DecryptPdf(File finalFile, String value) {
         try {
+            stop.setVisibility(View.VISIBLE);
             PDDocument pdd = PDDocument.load(finalFile, value);
 
             // removing all security from PDF file
@@ -360,6 +378,7 @@ public class TestActivity extends AppCompatActivity {
 
             // Close the PDF file
             pdd.close();
+            stop.setVisibility(View.INVISIBLE);
             Toast.makeText(getApplicationContext(),"PDF Decrypted",Toast.LENGTH_SHORT).show();
         }
         catch (InvalidPasswordException e){
@@ -368,5 +387,22 @@ public class TestActivity extends AppCompatActivity {
         catch (Exception e){
             Toast.makeText(getApplicationContext(),"Some Error occur while decrypting, Please check the password",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public boolean checkencrypt(File file){
+        try{
+            PDDocument pdd = PDDocument.load(file);
+            if(pdd.isEncrypted()){
+            }
+            else
+                return false;
+            pdd.close();
+        }
+        catch (InvalidPasswordException e){
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

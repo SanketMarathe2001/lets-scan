@@ -1,6 +1,6 @@
 package com.example.letsscan;
 
-import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -10,33 +10,23 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfCopy;
-import com.itextpdf.text.pdf.PdfImportedPage;
 import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.tom_roush.pdfbox.pdmodel.PDDocument;
+import com.tom_roush.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import com.tom_roush.pdfbox.util.PDFBoxResourceLoader;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class MergePDF extends AppCompatActivity {
 
@@ -45,12 +35,16 @@ public class MergePDF extends AppCompatActivity {
     private Handler handler;
     private final int PICKFILE_RESULT_CODE=10;
     private String btTag="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PDFBoxResourceLoader.init(getApplicationContext());
         setContentView(R.layout.activity_merge_pdf);
         txt1=(EditText)findViewById(R.id.txtfirstpdf);
         txt2=(EditText)findViewById(R.id.txtsecondpdf);
+        txt1.setEnabled(false);
+        txt2.setEnabled(false);
         bt1=(Button)findViewById(R.id.bt1);
         bt2=(Button)findViewById(R.id.bt2);
         Toolbar toolbar = findViewById(R.id.merge_toolbar);
@@ -84,8 +78,12 @@ public class MergePDF extends AppCompatActivity {
     }
     public void mergePdfFiles(View view){
         try {
+            if(!(txt1.getText().toString().equals("Pdf file") && txt2.getText().toString().equals("Pdf file"))){
             String[] srcs = {txt1.getText().toString(), txt2.getText().toString()};
             mergePdf(srcs);
+            }
+            else
+                Toast.makeText(getApplicationContext(),"You cannot leave it blank.",Toast.LENGTH_SHORT).show();
         }catch (Exception e){e.printStackTrace();}
     }
 
@@ -158,12 +156,21 @@ public class MergePDF extends AppCompatActivity {
                 }
                 if (requestCode == PICKFILE_RESULT_CODE) {
                     if (resultCode == RESULT_OK) {
-                        String FilePath = data.getData().getPath();
-                        if (bt1.getTag().toString().equals(btTag))
-                            txt1.setText(path);
-                        else
-                            txt2.setText(path);
-
+                        if(!checkencrypt(new File(path))) {
+                            String FilePath = data.getData().getPath();
+                            if (bt1.getTag().toString().equals(btTag))
+                                txt1.setText(path);
+                            else
+                                txt2.setText(path);
+                        }
+                        else{
+                            path="";
+                            Toast.makeText(getApplicationContext(),"Use cannot select the encrypt file.",Toast.LENGTH_SHORT).show();
+                            if (bt1.getTag().toString().equals(btTag))
+                                txt1.setText(path);
+                            else
+                                txt2.setText(path);
+                        }
                     }
                 }
             }
@@ -171,6 +178,23 @@ public class MergePDF extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    public boolean checkencrypt(File file){
+        try{
+            PDDocument pdd = PDDocument.load(file);
+            if(pdd.isEncrypted()){
+            }
+            else
+                return false;
+            pdd.close();
+        }
+        catch (InvalidPasswordException e){
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

@@ -234,9 +234,13 @@ public class DictPagerActivity extends AppCompatActivity implements UiThreadCall
                             public void onSuccess(FirebaseVisionText result) {
                                 // Task completed successfully
                                 // ...
+                                if(!result.getText().equals("")){
                                 Intent intent = new Intent(DictPagerActivity.this, ResultActivity.class);
                                 intent.putExtra("result", result.getText());
                                 startActivity(intent);
+                                }
+                                else
+                                    Toast.makeText(getApplicationContext(),"Text not found",Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(
@@ -245,7 +249,7 @@ public class DictPagerActivity extends AppCompatActivity implements UiThreadCall
                                     public void onFailure(@NonNull Exception e) {
                                         // Task failed with an exception
                                         // ...
-                                        Toast.makeText(getApplicationContext(),"Text Not Found",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(),"Error Occur",Toast.LENGTH_LONG).show();
                                     }
                                 });
 
