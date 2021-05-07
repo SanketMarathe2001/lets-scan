@@ -78,7 +78,7 @@ public class MergePDF extends AppCompatActivity {
     }
     public void mergePdfFiles(View view){
         try {
-            if(!(txt1.getText().toString().equals("Pdf file") && txt2.getText().toString().equals("Pdf file"))){
+            if(!(txt1.getText().toString().equals("Pdf file") || txt1.getText().toString().equals("")) && (txt2.getText().toString().equals("Pdf file") || txt2.getText().toString().equals(""))){
             String[] srcs = {txt1.getText().toString(), txt2.getText().toString()};
             mergePdf(srcs);
             }

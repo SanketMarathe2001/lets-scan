@@ -46,8 +46,6 @@ public class OcrActivity extends AppCompatActivity {
     ImageView ocr_image;
     Button gallery,camera,ocr;
     Bitmap bitmap;
-    File photoFile = null;
-    String mCurrentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,25 +108,9 @@ public class OcrActivity extends AppCompatActivity {
                 else
                 {
                     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                        // Create the File where the photo should go
-                        try {
-
-                            photoFile = createImageFile();
-                            Log.i("Mayank",photoFile.getAbsolutePath());
-
-                            // Continue only if the File was successfully created
-                            if (photoFile != null) {
-                                Uri photoURI = FileProvider.getUriForFile(getApplicationContext(), BuildConfig.APPLICATION_ID + ".provider", photoFile);
-                                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                                startActivityForResult(takePictureIntent, 102);
-                            }
-                        } catch (Exception ex) {
-                            // Error occurred while creating the File
-                             }
-
+                    startActivityForResult(takePictureIntent, 102);
+                }
             }
-        } }
         });
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +127,7 @@ public class OcrActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         try {
             Uri imageUri = data.getData();
+
             if (resultCode == RESULT_OK && requestCode == 101) {
                 ocr_image.setImageURI(imageUri);
                 try {
@@ -154,9 +137,8 @@ public class OcrActivity extends AppCompatActivity {
                 }
                 ocr.setVisibility(View.VISIBLE);
             } else if (resultCode == RESULT_OK && requestCode == 102) {
-                Bitmap myBitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-                bitmap = myBitmap;
-                ocr_image.setImageBitmap(myBitmap);
+                bitmap = (Bitmap) data.getExtras().get("data");
+                ocr_image.setImageBitmap(bitmap);
                 ocr.setVisibility(View.VISIBLE);
             }
         }
@@ -170,18 +152,5 @@ public class OcrActivity extends AppCompatActivity {
         return true;
     }
 
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String imageFileName = "images";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        return image;
-    }
 }
 

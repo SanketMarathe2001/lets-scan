@@ -26,7 +26,7 @@ public class SettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        final String[] strArr2 = {getString(R.string.quality_hi_value), getString(R.string.quality_label_sd), getString(R.string.quality_label_lo)};
+        final String[] strArr2 = {getString(R.string.quality_label_sd) };
         this.quality_tv = (TextView) findViewById(R.id.quality_tv);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_setting2_act);
         setSupportActionBar(toolbar);
@@ -37,7 +37,7 @@ public class SettingActivity extends AppCompatActivity {
         this.quality.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 SettingActivity settingActivity = SettingActivity.this;
-                settingActivity.create_dialogue(1, strArr2, settingActivity.getString(R.string.select_quality), SplashActivity.preferences.get(1).intValue());
+                settingActivity.create_dialogue(0, strArr2, settingActivity.getString(R.string.select_quality), SplashActivity.preferences.get(0).intValue());
             }
         });
     }
